@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        Commands\GenerateCrud::class,
+        Commands\GenerateCrudModel::class,
     ];
 
     /**
