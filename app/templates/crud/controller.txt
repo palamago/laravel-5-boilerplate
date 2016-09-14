@@ -1,0 +1,117 @@
+<?php namespace $NAMESPACE$;
+
+use App\Models\$MODEL$;
+use App\Http\Controllers\Controller;
+use Yajra\Datatables\Facades\Datatables;
+use App\Http\Requests\Backend\$MODEL$\Store$MODEL$Request;
+use App\Http\Requests\Backend\$MODEL$\Manage$MODEL$Request;
+use App\Http\Requests\Backend\$MODEL$\Update$MODEL$Request;
+use App\Repositories\Backend\$MODEL$\$MODEL$RepositoryContract;
+
+/**
+ * Class $MODEL$Controller
+ * @package $NAMESPACE$
+ */
+class $MODEL$Controller extends Controller
+{
+    /**
+     * @var $MODEL$RepositoryContract
+     */
+    protected $$TABLE$;
+
+    /**
+     * @param $MODEL$RepositoryContract       $$TABLE$
+     */
+    public function __construct(
+    	$MODEL$RepositoryContract $$TABLE$
+    	)
+	{
+        $this->$TABLE$ = $$TABLE$;
+    }
+
+	/**
+	 * @param Manage$MODEL$Request $request
+	 * @return mixed
+	 */
+	public function index(Manage$MODEL$Request $request)
+	{
+        return view('backend.$TABLE$.index');
+    }
+
+	/**
+	 * @param Manage$MODEL$Request $request
+	 * @return mixed
+	 */
+	public function get(Manage$MODEL$Request $request)
+	{
+		return Datatables::of($this->$TABLE$->getForDataTable())
+			->addColumn('actions', function($$TABLE$) {
+				return $$TABLE$->action_buttons;
+			})
+			->make(true);
+	}
+
+    /**
+     * @param Manage$MODEL$Request $request
+     * @return mixed
+     */
+    public function create(Manage$MODEL$Request $request)
+    {
+        return view('backend.$TABLE$.create')
+			->with$MODEL$Count($this->$TABLE$->getCount());
+    }
+
+    /**
+     * @param  Store$MODEL$Request $request
+     * @return mixed
+     */
+    public function store(Store$MODEL$Request $request)
+    {
+        $this->$TABLE$->create($request->all());
+        return redirect()->route('admin.$TABLE$.index')->withFlashSuccess(trans('alerts.backend.$TABLE$.created'));
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  Manage$MODEL$Request $request
+     * @return mixed
+     */
+    public function edit($MODEL$ $$TABLE$, Manage$MODEL$Request $request)
+    {
+        return view('backend.$TABLE$.edit')
+            ->with$MODEL$($$TABLE$);
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  Update$MODEL$Request $request
+     * @return mixed
+     */
+    public function update($MODEL$ $$TABLE$, Update$MODEL$Request $request)
+    {
+        $this->$TABLE$->update($$TABLE$, $request->all());
+        return redirect()->route('admin.$TABLE$.index')->withFlashSuccess(trans('alerts.backend.$TABLE$.updated'));
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  Manage$MODEL$Request $request
+     * @return mixed
+     */
+    public function show($MODEL$ $$TABLE$, Manage$MODEL$Request $request)
+    {
+        return view('backend.$TABLE$.show')
+            ->with$MODEL$($$TABLE$);
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  Manage$MODEL$Request $request
+     * @return mixed
+     */
+    public function destroy($MODEL$ $$TABLE$, Manage$MODEL$Request $request)
+    {
+        $this->$TABLE$->destroy($$TABLE$);
+        return redirect()->route('admin.$TABLE$.index')->withFlashSuccess(trans('alerts.backend.$TABLE$.deleted'));
+    }
+}

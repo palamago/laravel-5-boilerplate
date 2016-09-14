@@ -1,0 +1,51 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Models\$MODEL$;
+
+/**
+ * Interface $MODEL$RepositoryContract
+ * @package $NAMESPACE$
+ */
+interface $MODEL$RepositoryContract
+{
+
+    /**
+     * @return mixed
+     */
+    public function getCount();
+
+    /**
+     * @return mixed
+     */
+    public function getForDataTable();
+
+    /**
+     * @param  string  $order_by
+     * @param  string  $sort
+     * @param  bool    $withPermissions
+     * @return mixed
+     */
+    public function getAll$MODEL$($order_by = 'created_at', $sort = 'asc');
+
+    /**
+     * @param  $input
+     * @return mixed
+     */
+    public function create($input);
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  $input
+     * @return mixed
+     */
+    public function update($MODEL$ $$TABLE$, $input);
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @return mixed
+     */
+    public function destroy($MODEL$ $$TABLE$);
+
+}

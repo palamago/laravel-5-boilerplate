@@ -59,13 +59,21 @@ class GenerateCrud extends ResourceGeneratorCommand
         foreach ($tables as $key => $tableName) {
             if ($this->confirm("Do you want me to create a CRUD structure for '$tableName' table? [yes|no]"))
             {
+                $fields = $this->schemaGenerator->getFields($tableName);
+                $fks = $this->schemaGenerator->getForeignKeyConstraints($tableName);
 
-                $this->call('crud:model', [
+                $arguments = [
                     'tableName' => $tableName,
                     'modelName' => $this->getModelName($tableName),
-                    'fields' => $this->schemaGenerator->getFields($tableName),
-                    'foreignKeys' => $this->schemaGenerator->getForeignKeyConstraints($tableName)
-                ]);
+                    'fields' => $fields,
+                    'foreignKeys' => $fks
+                ];
+
+                $this->call('crud:model',       $arguments);
+                $this->call('crud:repository',  $arguments);
+                $this->call('crud:controller',  $arguments);
+                $this->call('crud:view',        $arguments);
+
             }
         }
 

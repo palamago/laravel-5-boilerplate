@@ -1,0 +1,107 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Models\$MODEL$;
+use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
+/*use App\Events\Backend\Access\$MODEL$\$MODEL$Created;
+use App\Events\Backend\Access\$MODEL$\$MODEL$Deleted;
+use App\Events\Backend\Access\$MODEL$\$MODEL$Updated;*/
+
+/**
+ * Class Eloquent$MODEL$Repository
+ * @package app\Repositories\$MODEL$
+ */
+class Eloquent$MODEL$Repository implements $MODEL$RepositoryContract
+{
+    
+	/**
+     * @return mixed
+     */
+    public function getCount() {
+        return $MODEL$::count();
+    }
+
+	/**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getForDataTable() {
+        return $MODEL$::all();
+    }
+
+    /**
+     * @param  string  $order_by
+     * @param  string  $sort
+     * @return mixed
+     */
+    public function getAll$MODEL$($order_by = 'created_at', $sort = 'asc')
+    {
+        return $MODEL$::orderBy($order_by, $sort)
+            ->get();
+    }
+
+    /**
+     * @param  $input
+     * @throws GeneralException
+     * @return bool
+     */
+    public function create($input)
+    {
+
+		DB::transaction(function() use ($input) {
+			$$TABLE$ = new $MODEL$;
+			$$TABLE$->fill($input);
+
+			if ($$TABLE$->save()) {
+
+				//event(new $MODEL$Created($$TABLE$));
+				return true;
+			}
+
+			throw new GeneralException(trans('exceptions.backend.$TABLE$.create_error'));
+		});
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @param  $input
+     * @throws GeneralException
+     * @return bool
+     */
+    public function update($MODEL$ $$TABLE$, $input)
+    {
+
+        $$TABLE$->fill($input);
+
+		DB::transaction(function() use ($$TABLE$, $input) {
+			if ($$TABLE$->save()) {
+
+				//event(new $MODEL$Updated($$TABLE$));
+				return true;
+			}
+
+			throw new GeneralException(trans('exceptions.backend.$TABLE$.update_error'));
+		});
+    }
+
+    /**
+     * @param  $MODEL$ $$TABLE$
+     * @throws GeneralException
+     * @return bool
+     */
+    public function destroy($MODEL$ $$TABLE$)
+    {
+
+		DB::transaction(function() use ($$TABLE$) {
+
+			if ($$TABLE$->delete()) {
+				//event(new $MODEL$Deleted($$TABLE$));
+				return true;
+			}
+
+			throw new GeneralException(trans('exceptions.backend.$TABLE$.delete_error'));
+		});
+    }
+
+}

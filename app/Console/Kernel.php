@@ -19,6 +19,10 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\GenerateCrud::class,
         Commands\GenerateCrudModel::class,
+        Commands\GenerateCrudController::class,
+        Commands\GenerateCrudRepository::class,
+        Commands\GenerateCrudView::class
+
     ];
 
     /**

@@ -5,8 +5,7 @@ namespace App\Console\Commands;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-
-class GenerateCrudModel extends GeneratorCrudCommand
+class GenerateCrudRepository extends GeneratorCrudCommand
 {
 
     /**
@@ -14,7 +13,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
      *
      * @var string
      */
-    protected $name = 'crud:model';
+    protected $name = 'crud:repository';
 
     /**
      * The console command description.
@@ -30,9 +29,9 @@ class GenerateCrudModel extends GeneratorCrudCommand
      */
     protected function getFileGenerationPath()
     {
-        $path = config("crud.model_path");
+        $path = config("crud.repository_path");
 
-        return $path. '/' . ucwords($this->argument('modelName')) . '.php';
+        return $path. '/' . ucwords($this->argument('modelName')) . '/Eloquent' . ucwords($this->argument('modelName')) . 'Repository.php';
     }
 
     /**
@@ -42,13 +41,29 @@ class GenerateCrudModel extends GeneratorCrudCommand
      */
     protected function getTemplateData()
     {
-
         $fields = $this->parseAndGetFields();
 
-        $fields['NAMESPACE'] = 'App\Models';
+        $fields['NAMESPACE'] = 'App\Repositories\Backend\\'.$fields['MODEL'];
+
+        $filePathToGenerate = config("crud.repository_path"). '/' . ucwords($this->argument('modelName')) . '/' . ucwords($this->argument('modelName')) . 'RepositoryContract.php';
+
+        try
+        {
+            $this->generator->make(
+                config("crud.repository_contract_template"),
+                $fields,
+                $filePathToGenerate
+            );
+
+            $this->info("Created: {$filePathToGenerate}");
+        }
+
+        catch (FileAlreadyExists $e)
+        {
+            $this->error("Se ignora la creacion de crud contract");
+        }
 
         return $fields;
-
     }
 
     /**
@@ -58,7 +73,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
      */
     protected function getTemplatePath()
     {
-        return config("crud.model_template");
+        return config("crud.repository_template");
     }
 
     /**

@@ -5,8 +5,7 @@ namespace App\Console\Commands;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-
-class GenerateCrudModel extends GeneratorCrudCommand
+class GenerateCrudController extends GeneratorCrudCommand
 {
 
     /**
@@ -14,7 +13,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
      *
      * @var string
      */
-    protected $name = 'crud:model';
+    protected $name = 'crud:controller';
 
     /**
      * The console command description.
@@ -30,9 +29,9 @@ class GenerateCrudModel extends GeneratorCrudCommand
      */
     protected function getFileGenerationPath()
     {
-        $path = config("crud.model_path");
+        $path = config("crud.controller_path");
 
-        return $path. '/' . ucwords($this->argument('modelName')) . '.php';
+        return $path. '/' . ucwords($this->argument('modelName')) . 'Controller.php';
     }
 
     /**
@@ -45,7 +44,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
 
         $fields = $this->parseAndGetFields();
 
-        $fields['NAMESPACE'] = 'App\Models';
+        $fields['NAMESPACE'] = 'App\Http\Controllers\Backend';
 
         return $fields;
 
@@ -58,7 +57,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
      */
     protected function getTemplatePath()
     {
-        return config("crud.model_template");
+        return config("crud.controller_template");
     }
 
     /**
