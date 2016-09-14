@@ -1,1 +1,0 @@
-/Users/pala/workspace/laravel-5-boilerplate/resources/views/grupo.blade.php
