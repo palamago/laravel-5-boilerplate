@@ -17,6 +17,11 @@ return [
     'view_show_template' => app_path('templates/crud/view_show.txt'),
     'view_create_template' => app_path('templates/crud/view_create.txt'),
     'view_edit_template' => app_path('templates/crud/view_edit.txt'),
-    'view_form_template' => app_path('templates/crud/view_form.txt')
+    'view_form_template' => app_path('templates/crud/view_form.txt'),
+
+    'request_path' => app_path('Http/Requests/Backend'),
+    'request_manage_template' => app_path('templates/crud/request_manage.txt'),
+    'request_store_template' => app_path('templates/crud/request_store.txt'),
+    'request_update_template' => app_path('templates/crud/request_update.txt')
 
 ];

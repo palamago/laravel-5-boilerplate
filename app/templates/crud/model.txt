@@ -2,12 +2,52 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class $NAME$ extends Model {
+class $MODEL$ extends Model {
 
 	protected $fillable = [$FILLABLES$];
 	
 	protected $table = '$TABLE$';
 
 	protected $primaryKey = '$PK$';
+
+    /**
+     * @return string
+     */
+    public function getShowButtonAttribute()
+    {
+        return '<a href="' . route('admin.$TABLE$.show', $this) . '" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.show') . '"></i></a> ';
+    }
+
+    /**
+     * @return string
+     */
+    public function getEditButtonAttribute()
+    {
+        return '<a href="' . route('admin.$TABLE$.edit', $this) . '" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.edit') . '"></i></a> ';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeleteButtonAttribute()
+    {
+        //Can't delete master admin role
+        if ($this->id != 1) {
+            return '<a href="' . route('admin.$TABLE$.destroy', $this) . '" class="btn btn-xs btn-danger" data-method="delete"><i class="fa fa-times" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a>';
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getActionButtonsAttribute()
+    {
+        return 
+        $this->getShowButtonAttribute() .
+        $this->getEditButtonAttribute() .
+        $this->getDeleteButtonAttribute();
+    }
 
 }

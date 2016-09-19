@@ -16,8 +16,9 @@
             <h3 class="box-title">{{ trans('labels.backend.$TABLE$.management') }}</h3>
 
             <div class="box-tools pull-right">
-
+                <a class="btn btn-primary btn-sm" href="{{ route('admin.$TABLE$.create') }}"><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.create') . '"></i>  {{ trans('buttons.general.crud.create') }}</a>
             </div>
+
         </div><!-- /.box-header -->
 
         <div class="box-body">

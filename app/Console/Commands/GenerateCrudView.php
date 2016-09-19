@@ -47,13 +47,16 @@ class GenerateCrudView extends GeneratorCrudCommand
 
         $fields['TABLE_HEADERS'] = $this->getFillablesFieldsTableHeader();
         $fields['JSON_CONFIG'] = $this->getFillablesFieldsJsonConfig();
+        $fields['FIELDS_SHOW'] = $this->getFieldsShow();
+        $fields['FIELDS_FORM'] = $this->getFillablesFieldsForm();
 
-       /* $filePathToGenerate = config("crud.repository_path"). '/' . ucwords($this->argument('modelName')) . '/' . ucwords($this->argument('modelName')) . 'RepositoryContract.php';
+        //SHOW
+        $filePathToGenerate = config("crud.view_path"). '/' . $this->argument('tableName') . '/show.blade.php';
 
         try
         {
             $this->generator->make(
-                config("crud.repository_contract_template"),
+                config("crud.view_show_template"),
                 $fields,
                 $filePathToGenerate
             );
@@ -65,7 +68,65 @@ class GenerateCrudView extends GeneratorCrudCommand
         {
             $this->error("Se ignora la creacion de crud contract");
         }
-*/
+
+        //EDIT
+        $filePathToGenerate = config("crud.view_path"). '/' . $this->argument('tableName') . '/edit.blade.php';
+
+        try
+        {
+            $this->generator->make(
+                config("crud.view_edit_template"),
+                $fields,
+                $filePathToGenerate
+            );
+
+            $this->info("Created: {$filePathToGenerate}");
+        }
+
+        catch (FileAlreadyExists $e)
+        {
+            $this->error("Se ignora la creacion de crud contract");
+        }
+
+        //CREATE
+        $filePathToGenerate = config("crud.view_path"). '/' . $this->argument('tableName') . '/create.blade.php';
+
+        try
+        {
+            $this->generator->make(
+                config("crud.view_create_template"),
+                $fields,
+                $filePathToGenerate
+            );
+
+            $this->info("Created: {$filePathToGenerate}");
+        }
+
+        catch (FileAlreadyExists $e)
+        {
+            $this->error("Se ignora la creacion de crud contract");
+        }
+
+        //FORM
+        $filePathToGenerate = config("crud.view_path"). '/' . $this->argument('tableName') . '/form.blade.php';
+
+        try
+        {
+            $this->generator->make(
+                config("crud.view_form_template"),
+                $fields,
+                $filePathToGenerate
+            );
+
+            $this->info("Created: {$filePathToGenerate}");
+        }
+
+        catch (FileAlreadyExists $e)
+        {
+            $this->error("Se ignora la creacion de crud contract");
+        }
+
+
         return $fields;
     }
 

@@ -50,6 +50,37 @@ abstract class GeneratorCrudCommand extends GeneratorCommand
         return $fillables;
     }
 
+    public function getFillablesFieldsForm()
+    {
+        $html = '';
+
+        foreach ($this->fields as $fieldName => $attrs) {
+            if(!in_array($fieldName, [$this->pk,'created_at','updated_at','deleted_at'])){
+                $html .= '<div class="form-group">
+    {{ Form::label("'.$fieldName.'", "'.ucwords($fieldName).'", ["class" => "col-lg-2 control-label"]) }}
+
+    <div class="col-lg-10">
+        {{ Form::text("'.$fieldName.'", null, ["class" => "form-control", "placeholder" => "'.ucwords($fieldName).'" ]) }}
+    </div>
+</div>
+
+';
+            }
+        }
+
+        return $html;
+    }
+
+    public function getFieldsShow()
+    {
+        $fields = '<dl>';
+
+        foreach ($this->fields as $fieldName => $attrs) {
+            $fields .= '<dt>'.ucwords(str_replace('_', ' ', $fieldName)).'</dt><dd>{{$'.$this->argument('tableName').'->'.$fieldName.'}}</dd>';
+        }
+        return $fields.'</dl>';
+    }
+
     public function getFillablesFieldsTableHeader()
     {
         $fillables = [];
@@ -59,6 +90,15 @@ abstract class GeneratorCrudCommand extends GeneratorCommand
             }
         }
         return implode('', $fillables);
+    }
+
+    public function getFillablesFieldsRequired()
+    {
+        $str = collect($this->fillables)->reduce(function ($carry, $item) {
+            return $carry . "'$item' => 'required',";
+        },'');
+
+        return rtrim($str, ',');
     }
 
     public function getFillablesFieldsJsonConfig()

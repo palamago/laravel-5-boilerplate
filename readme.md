@@ -33,3 +33,12 @@ If you would like to help the continued efforts of this project, any size [donat
 ### License
 
 MIT: [http://anthony.mit-license.org](http://anthony.mit-license.org)
+
+
+
+---
+Además de generar:
+-Crud service provider al config/app.php
+
+-route config al routes.php
+require (__DIR__ . '/Routes/Backend/Crud.php');

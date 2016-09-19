@@ -69,9 +69,10 @@ class GenerateCrud extends ResourceGeneratorCommand
                     'foreignKeys' => $fks
                 ];
 
-                $this->call('crud:model',       $arguments);
-                $this->call('crud:repository',  $arguments);
-                $this->call('crud:controller',  $arguments);
+                //$this->call('crud:model',       $arguments);
+                //$this->call('crud:repository',  $arguments);
+                //$this->call('crud:controller',  $arguments);
+                //$this->call('crud:request',       $arguments);
                 $this->call('crud:view',        $arguments);
 
             }

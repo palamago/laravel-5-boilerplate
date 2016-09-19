@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         Commands\GenerateCrudModel::class,
         Commands\GenerateCrudController::class,
         Commands\GenerateCrudRepository::class,
-        Commands\GenerateCrudView::class
+        Commands\GenerateCrudView::class,
+        Commands\GenerateCrudRequest::class,
 
     ];
 
