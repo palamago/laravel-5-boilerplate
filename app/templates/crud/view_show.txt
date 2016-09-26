@@ -13,6 +13,7 @@
 
             <div class="box-tools pull-right">
                 <a class="btn btn-primary btn-sm" href="{{ route('admin.$TABLE$.index') }}"><i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.list') . '"></i>  {{ trans('buttons.general.crud.list') }}</a>
+                <a class="btn btn-warning btn-sm" href="{{ route('admin.$TABLE$.edit',$$TABLE$) }}"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.list') . '"></i>  {{ trans('buttons.general.crud.list') }}</a>
             </div>
 
         </div><!-- /.box-header -->

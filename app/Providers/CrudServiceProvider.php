@@ -33,6 +33,16 @@ class CrudServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
+            \App\Repositories\Backend\Etapa\EtapaRepositoryContract::class,
+            \App\Repositories\Backend\Etapa\EloquentEtapaRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Backend\Chequeo\ChequeoRepositoryContract::class,
+            \App\Repositories\Backend\Chequeo\EloquentChequeoRepository::class
+        );
+
+        $this->app->bind(
             \App\Repositories\Backend\Calificacion\CalificacionRepositoryContract::class,
             \App\Repositories\Backend\Calificacion\EloquentCalificacionRepository::class
         );

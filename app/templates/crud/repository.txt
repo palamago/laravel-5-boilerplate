@@ -23,6 +23,13 @@ class Eloquent$MODEL$Repository implements $MODEL$RepositoryContract
         return $MODEL$::count();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getList() {
+        return $MODEL$::orderBy('$LABEL$')->pluck('$LABEL$', '$PK$');
+    }
+
 	/**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */

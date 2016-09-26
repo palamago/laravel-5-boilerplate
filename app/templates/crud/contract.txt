@@ -19,6 +19,11 @@ interface $MODEL$RepositoryContract
     /**
      * @return mixed
      */
+    public function getList();
+
+    /**
+     * @return mixed
+     */
     public function getForDataTable();
 
     /**

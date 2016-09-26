@@ -54,6 +54,9 @@ class GenerateCrud extends ResourceGeneratorCommand
             InputOption::VALUE_NONE
         );
 
+        $repositorios = array();
+        $routes = array();
+
         $tables = $this->schemaGenerator->getTables();
 
         foreach ($tables as $key => $tableName) {
@@ -69,14 +72,42 @@ class GenerateCrud extends ResourceGeneratorCommand
                     'foreignKeys' => $fks
                 ];
 
-                //$this->call('crud:model',       $arguments);
-                //$this->call('crud:repository',  $arguments);
-                //$this->call('crud:controller',  $arguments);
-                //$this->call('crud:request',       $arguments);
-                $this->call('crud:view',        $arguments);
+                if ($this->confirm("Model for '$tableName' table? [yes|no]")){
+                    $this->call('crud:model',       $arguments);
+                }
+                if ($this->confirm("Repository for '$tableName' table? [yes|no]")){
+                    $this->call('crud:repository',  $arguments);
+                    
+                    $repositorios[] = '
+        $this->app->bind(
+            \App\Repositories\Backend\\'.$arguments['modelName'].'\\'.$arguments['modelName'].'RepositoryContract::class,
+            \App\Repositories\Backend\\'.$arguments['modelName'].'\Eloquent\\'.$arguments['modelName'].'Repository::class
+        );
+        ';
+
+                }
+                if ($this->confirm("Controller & Requests for '$tableName' table? [yes|no]")){
+                    $this->call('crud:request',       $arguments);
+                    $this->call('crud:controller',  $arguments);
+
+                   $routes[] = "
+        Route::get('".$arguments['tableName']."/get', '".$arguments['modelName']."Controller@get')->name('admin.".$arguments['tableName'].".get');
+        Route::resource('".$arguments['tableName']."', '".$arguments['modelName']."Controller');
+        ";
+
+                }
+                if ($this->confirm("Views for '$tableName' table? [yes|no]")){
+                    $this->call('crud:view',        $arguments);
+                }
 
             }
         }
+
+        $this->info('Recuerde copiar lo siguiente en el CrudServiceProvider');
+        $this->info(implode('',$repositorios));
+
+        $this->info('Recuerde copiar lo siguiente en el Crud.php en routes');
+        $this->info(implode('',$routes));
 
     }
 

@@ -15,7 +15,7 @@ class $MODEL$ extends Model {
      */
     public function getShowButtonAttribute()
     {
-        return '<a href="' . route('admin.$TABLE$.show', $this) . '" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.show') . '"></i></a> ';
+        return '<a href="' . route('admin.$TABLE$.show', $this) . '" class="btn btn-xs btn-success"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.show') . '"></i></a> ';
     }
 
     /**
@@ -23,7 +23,7 @@ class $MODEL$ extends Model {
      */
     public function getEditButtonAttribute()
     {
-        return '<a href="' . route('admin.$TABLE$.edit', $this) . '" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.edit') . '"></i></a> ';
+        return '<a href="' . route('admin.$TABLE$.edit', $this) . '" class="btn btn-xs btn-warning"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.edit') . '"></i></a> ';
     }
 
     /**
@@ -49,5 +49,7 @@ class $MODEL$ extends Model {
         $this->getEditButtonAttribute() .
         $this->getDeleteButtonAttribute();
     }
+
+    $RELATIONS$
 
 }

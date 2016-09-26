@@ -46,6 +46,7 @@ class GenerateCrudModel extends GeneratorCrudCommand
         $fields = $this->parseAndGetFields();
 
         $fields['NAMESPACE'] = 'App\Models';
+        $fields['RELATIONS'] = $this->fksRelations();
 
         return $fields;
 

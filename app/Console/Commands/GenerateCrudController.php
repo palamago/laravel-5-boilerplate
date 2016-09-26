@@ -46,6 +46,32 @@ class GenerateCrudController extends GeneratorCrudCommand
 
         $fields['NAMESPACE'] = 'App\Http\Controllers\Backend';
 
+        $fields['RELATIONS_USE'] = collect($this->fks)->reduce(function ($s, $fk) {
+            return $s . "
+use App\Repositories\Backend\\".ucwords($fk['on'])."\\".ucwords($fk['on'])."RepositoryContract;";
+        }, '');
+        
+        $fields['RELATIONS_PROTECTED'] = collect($this->fks)->reduce(function ($s, $fk) {
+            return $s . "
+    protected $" . $fk['on'] . ";";
+        }, '');
+
+        $fields['RELATIONS_REPOSITORIES'] = collect($this->fks)->reduce(function ($s, $fk) {
+            return $s . "
+        ".ucwords($fk['on'])."RepositoryContract $".$fk['on'].",";
+        }, '');
+
+        $fields['RELATIONS_SET'] = collect($this->fks)->reduce(function ($s, $fk) {
+            return $s . "
+        \$this->".$fk['on']."= $".$fk['on'].";";
+        }, '');
+
+
+        $fields['RELATIONS_WITH'] = collect($this->fks)->reduce(function ($s, $fk) {
+            return $s . "
+            ->with".ucwords($fk['on'])."(\$this->".$fk['on']."->getList())";
+        }, '');
+
         return $fields;
 
     }

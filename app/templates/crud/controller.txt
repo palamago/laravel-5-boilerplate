@@ -8,6 +8,8 @@ use App\Http\Requests\Backend\$MODEL$\Manage$MODEL$Request;
 use App\Http\Requests\Backend\$MODEL$\Update$MODEL$Request;
 use App\Repositories\Backend\$MODEL$\$MODEL$RepositoryContract;
 
+$RELATIONS_USE$
+
 /**
  * Class $MODEL$Controller
  * @package $NAMESPACE$
@@ -18,14 +20,17 @@ class $MODEL$Controller extends Controller
      * @var $MODEL$RepositoryContract
      */
     protected $$TABLE$;
+    $RELATIONS_PROTECTED$
 
     /**
      * @param $MODEL$RepositoryContract       $$TABLE$
      */
     public function __construct(
+        $RELATIONS_REPOSITORIES$
     	$MODEL$RepositoryContract $$TABLE$
     	)
 	{
+        $RELATIONS_SET$
         $this->$TABLE$ = $$TABLE$;
     }
 
@@ -58,6 +63,7 @@ class $MODEL$Controller extends Controller
     public function create(Manage$MODEL$Request $request)
     {
         return view('backend.$TABLE$.create')
+            $RELATIONS_WITH$
 			->with$MODEL$Count($this->$TABLE$->getCount());
     }
 
@@ -79,6 +85,7 @@ class $MODEL$Controller extends Controller
     public function edit($MODEL$ $$TABLE$, Manage$MODEL$Request $request)
     {
         return view('backend.$TABLE$.edit')
+            $RELATIONS_WITH$
             ->with$MODEL$($$TABLE$);
     }
 

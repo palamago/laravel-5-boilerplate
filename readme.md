@@ -42,3 +42,5 @@ Además de generar:
 
 -route config al routes.php
 require (__DIR__ . '/Routes/Backend/Crud.php');
+
+-Agregar los models que quieran tener historia al seed de history	
